@@ -1,0 +1,77 @@
+version: 2
+
+models:
+  - name: customer_responsiveness
+    description: >
+      Table that responds to which type of customers are more likely to respond to promotional offers by presenting the
+      response rate (# offers completed/ # all offers) per customer, gender, age, income, begging of subscription and offer type.
+      Consider - respond to promotional offers as an offer with transaction_status = completed.
+    columns:
+      - name: customer_id
+        description: Unique identifier for each customer.
+        data_type: text
+        data_tests:
+          - not_null
+      - name: gender
+        description: Gender of the customer.
+        data_type: text
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['M', 'F', 'O', 'N/A']
+      - name: age
+        description: Age of the customer applying segmentation.
+        data_type: text
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['Tennagers', 'Young Adults', 'Early Adulthood', 'Mid Adulthood', 'Late Adulthood', 'Pre-Seniors', 'Early Seniors', 'Seniors']
+      - name: income
+        description: Income of the customer applying segmentation.
+        data_type: text
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['Very Low Income (< 30k $)', 'Low Income (30k - 49k $)', 'Middle Income (50k - 79k $)', 'Upper-Middle Income (80k - 99k $)', 'High Income (> 99k $)']
+      - name: years_since_client
+        description: Difference between each run and subscribe_date for each client applying segmentation.
+        data_type: text
+        data_tests:
+          - not_null
+          - accepted_values:
+              values: ['New Clients (< 1 year)', 'Emerging Clients (from 2 to 4 years)', 'Core Customers (from 5 to 9 years)', 'Star Members (more than a decade)','Unknown']
+      - name: offer_type
+        description: Type of offer.
+        data_type: text
+        data_tests:
+          - not_null
+      - name: response_rate
+        description: Percentage of offers completed per all the above dimensions.
+        data_type: numeric
+        tests:
+          - response_rate_test
+
+  - name: channel_effectiveness
+    description: >
+      Table aimed at identifying the most effective channel for achieving the completion of an offer.
+      Consider - effectiveness as an offer with transaction_status = completed.
+    columns:
+      - name: offer_channel
+        description: A list of channels through which the offer was received.
+        data_type: text
+        data_tests:
+          - not_null
+          - accepted_values:
+              values:
+                - email
+                - mobile
+                - social
+                - web
+      - name: response_rate
+        description: Percentage of offers completed per channel.
+        data_type: numeric
+        tests:
+          - response_rate_test
+      - name: nr_total_offers_channel
+        description: Number of total offers per channel.
+        data_type: integer

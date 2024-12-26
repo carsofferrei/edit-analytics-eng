@@ -1,6 +1,6 @@
 {% macro age_segm(age = 'age') %}
     case
-                when {{age}} < 18 
+                when {{age}} < 18
                 then 'Tennagers'
                 when {{age}} between 18 and 24
                 then 'Young Adults'
