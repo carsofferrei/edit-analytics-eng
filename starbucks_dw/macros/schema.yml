@@ -7,10 +7,40 @@ macros:
       - name: hours
         description: Number of hours.
         type: integer
-  
+
   - name: format_transaction_type
     description: Define new column based on condicional statments on transaction_type.
     arguments:
       - name: transactions.transaction_type
         description: transation status.
         type: string
+
+    - name: age_segm
+    description: Define a new column applying segmentation on age of the customer.
+    arguments:
+      - name: age
+        description: Age of the customer.
+        type: string
+
+    - name: income_segm
+    description: Define a new column applying segmentation on the income of the customer.
+    arguments:
+      - name: income
+        description: Income of the customer.
+        type: string
+
+    - name: years_since_client_segm
+    description: Define a new column applying segmentation on the difference between today and subscrition date (in years).
+    arguments:
+      - name: years_since_client
+        description: Segment of the client based on the difference between today and subscrition date (in years).
+        type: string
+
+    - name: calculate_response_rate
+    description: Divide the number of completed offers by the total number of offers.
+    arguments:
+      - name: response_rate
+        type: numeric
+
+    - name: response_rate_test
+    description: test that verify that there are no response rates greater than 1.
